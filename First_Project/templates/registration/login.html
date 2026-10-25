@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>Entrar</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button>Entrar</button>
+</form>
+<p><a href="{% url 'registo' %}">Criar conta</a></p>
+{% endblock %}

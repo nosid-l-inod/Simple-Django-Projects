@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Tarefas{% endblock %}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
+    nav { display: flex; justify-content: space-between; margin-bottom: 2rem; }
+    ul { list-style: none; padding: 0; }
+    li { display: flex; gap: .5rem; align-items: center; margin: .5rem 0; }
+    li span { flex: 1; }
+    .feita { text-decoration: line-through; color: gray; }
+    form { margin: 0; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>Tarefas</strong>
+    {% if user.is_authenticated %}
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        {{ user.username }}
+        <button>Sair</button>
+      </form>
+    {% endif %}
+  </nav>
+  {% block conteudo %}{% endblock %}
+</body>
+</html>

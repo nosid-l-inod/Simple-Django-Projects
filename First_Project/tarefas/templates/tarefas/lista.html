@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.titulo }}
+  <button>Adicionar</button>
+</form>
+
+<ul>
+  {% for t in tarefas %}
+    <li>
+      <form method="post" action="{% url 'alternar' t.pk %}">
+        {% csrf_token %}
+        <button>{% if t.concluida %}Reabrir{% else %}Concluir{% endif %}</button>
+      </form>
+      <span class="{% if t.concluida %}feita{% endif %}">{{ t.titulo }}</span>
+      <form method="post" action="{% url 'apagar' t.pk %}">
+        {% csrf_token %}
+        <button>Apagar</button>
+      </form>
+    </li>
+  {% empty %}
+    <li>Ainda não tens tarefas.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
